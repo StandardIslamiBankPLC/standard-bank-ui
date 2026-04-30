@@ -1,0 +1,14 @@
+{
+  "extends": "./tsconfig.app.json",
+  "compilerOptions": {
+    "noEmit": false,
+    "declaration": true,
+    "emitDeclarationOnly": true,
+    "declarationMap": true,
+    "rootDir": "./src",
+    "outDir": "./dist",
+    "types": ["vite/client"]
+  },
+  "include": ["src/index.tsx", "src/components/**/*.ts", "src/components/**/*.tsx", "src/styles.css"]
+}
+
