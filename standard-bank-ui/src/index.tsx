@@ -52,9 +52,9 @@ export const Hero = HeroComponent;
 export { DefaultButton, Navbar };
 
 //https://material.colorion.co/palette/757
-const ColorPalette = ['#F5FAF5', '#D2E9D6', '#3AB157', '#66C17B', '#97D3A2', '#B7E0BF'];
-const PrimeryColor = ColorPalette[2];
-const background = ColorPalette[1];
+export const ColorPalette = ['#F5FAF5', '#D2E9D6', '#3AB157', '#66C17B', '#97D3A2', '#B7E0BF'];
+export const PrimaryColor = ColorPalette[2];
+export const BackgroundColor = ColorPalette[1];
 const StandardBankUI = {
   Button,
   Card,

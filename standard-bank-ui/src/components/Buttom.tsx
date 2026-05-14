@@ -1,8 +1,10 @@
 import type {
   AnchorHTMLAttributes,
   ButtonHTMLAttributes,
+  CSSProperties,
   ReactNode,
 } from "react";
+import { BackgroundColor, ColorPalette, PrimaryColor } from "../index";
 
 /**
  * Color variants for button intent.
@@ -105,7 +107,7 @@ export type ButtonProps = (ButtonElementProps | AnchorButtonProps) & {
  * a gradient animation by moving the background position from left to right.
  */
 const primaryColorClasses: Record<ButtonBaseColor, string> = {
-  emerald: "bg-emerald-700 text-white transition-all duration-200 ease-out hover:bg-emerald-700 focus-visible:ring-emerald-400/70",
+  emerald: "bg-[var(--btn-bg)] text-[var(--btn-text)] transition-all duration-200 ease-out hover:bg-[var(--btn-hover)] focus-visible:ring-[var(--btn-ring)]",
   slate: "bg-slate-700 text-white transition-all duration-200 ease-out hover:bg-slate-800 focus-visible:ring-slate-500/70",
   rose: "bg-rose-600 text-white transition-all duration-200 ease-out hover:bg-rose-700 focus-visible:ring-rose-500/70",
   amber: "bg-amber-400 text-slate-900 transition-all duration-200 ease-out hover:bg-amber-500 focus-visible:ring-amber-300/70",
@@ -116,11 +118,11 @@ const defaultVariantClasses: Record<Exclude<ButtonColorVariant, "primary">, stri
   danger: "bg-red-500 text-white transition-all duration-200 ease-out hover:bg-red-600 focus-visible:ring-red-400/70",
   success: "bg-green-500 text-white hover:bg-green-600 focus-visible:ring-emerald-400/70",
   warning: "bg-amber-400 text-slate-900 transition-all duration-200 ease-out hover:bg-amber-500 focus-visible:ring-amber-300/70",
-  default: "bg-slate-100 text-slate-500 hover:bg-gradient-to-r hover:from-slate-200 hover:to-slate-300 hover:text-slate-600 focus-visible:ring-slate-400/70",
+  default: "bg-[var(--btn-bg)] text-[var(--btn-text)] hover:bg-[var(--btn-hover)] focus-visible:ring-[var(--btn-ring)]",
 };
 
 const ghostPrimaryColorClasses: Record<ButtonBaseColor, string> = {
-  emerald: "border-emerald-500 text-emerald-700 hover:bg-emerald-50 focus-visible:ring-emerald-500",
+  emerald: "border-[var(--btn-bg)] text-[var(--btn-bg)] hover:bg-[var(--btn-bg)]/10 focus-visible:ring-[var(--btn-ring)]",
   slate: "border-slate-500 text-slate-700 hover:bg-slate-50 focus-visible:ring-slate-500",
   rose: "border-rose-500 text-rose-700 hover:bg-rose-50 focus-visible:ring-rose-500",
   amber: "border-amber-500 text-amber-700 hover:bg-amber-50 focus-visible:ring-amber-500",
@@ -293,6 +295,23 @@ export function DefaultButton({
       ? primaryColorClasses[baseColor]
       : defaultVariantClasses[normalizedVariant];
 
+  const themeStyle =
+    normalizedVariant === "primary"
+      ? ({
+          "--btn-bg": PrimaryColor,
+          "--btn-text": "#ffffff",
+          "--btn-hover": ColorPalette[3],
+          "--btn-ring": "rgba(58, 177, 87, 0.35)",
+        } as CSSProperties)
+      : normalizedVariant === "default"
+      ? ({
+          "--btn-bg": BackgroundColor,
+          "--btn-text": "#0f172a",
+          "--btn-hover": ColorPalette[4],
+          "--btn-ring": "rgba(148, 163, 184, 0.35)",
+        } as CSSProperties)
+      : undefined;
+
   const classes = [
     "inline-flex items-center justify-center gap-2.5 rounded-sm border border-transparent font-medium transition-all duration-300 ease-out transform-gpu",
     "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2",
@@ -326,14 +345,14 @@ export function DefaultButton({
 
   if (href) {
     return (
-      <a href={href} className={classes} {...anchorProps}>
+      <a href={href} className={classes} style={themeStyle} {...anchorProps}>
         {content}
       </a>
     );
   }
 
   return (
-    <button type={type} disabled={isDisabled} className={classes} {...buttonProps}>
+    <button type={type} disabled={isDisabled} className={classes} style={themeStyle} {...buttonProps}>
       {content}
     </button>
   );

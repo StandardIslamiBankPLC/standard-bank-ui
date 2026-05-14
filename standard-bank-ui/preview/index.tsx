@@ -1,5 +1,6 @@
 ﻿import { createRoot } from 'react-dom/client'
 import StandardBankUI, { Button } from '../src/index'
+import InputComps from './pages/InputCOmps'
 import TypoComps from './pages/TypoComps'
 import '../src/index.css'
 import logo from '../src/assets/logo.svg'
@@ -85,6 +86,7 @@ function App() {
             </div>
           </StandardBankUI.Section>
 
+          <InputComps />
           <TypoComps />
           <ButtonComponents />
         </div>
