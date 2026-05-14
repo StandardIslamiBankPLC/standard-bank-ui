@@ -1,6 +1,6 @@
 {
   "name": "standard-bank-ui",
-  "version": "0.2.2",
+  "version": "0.2.3",
   "description": "Tailwind + React UI component library For Standard Bank",
   "license": "MIT",
   "type": "module",
